@@ -1,24 +1,5 @@
-from typing import Optional
-from fastapi import FastAPI
-from pydantic import BaseModel
-from typing import Optional
+from myapp.main import *
+import uvicorn
 
-app = FastAPI()
-
-class Product(BaseModel):
-    name: str
-    price: int
-    tags: Optional[list[str]]
-
-    @property
-    def as_dict(self):
-        return {
-            'name': self.name,
-            'price': self.price,
-            'tags': self.tags
-        }
-
-
-@app.post('/add_item/')
-def add_item(product: Product):
-    return product.as_dict
+if __name__ == '__main__':
+    uvicorn.run(app, host='127.0.0.1', port=8000)
